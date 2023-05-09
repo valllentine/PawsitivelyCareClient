@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      PawsitivelyCare
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form #loginForm="ngForm">
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" name="email" [(ngModel)]="email" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" name="password" [(ngModel)]="password" required></ion-input>
+    </ion-item>
+    <ion-button type="submit" expand="block" (click)="login(email, password)" style="margin-top: 20px" >Login</ion-button>
+    <ion-button type="submit"  *ngIf="isLogginIn" expand="block" (click)="logout()">Logout</ion-button>
+    <p class="ion-text-center">Don't have an account? Create the new one!</p>
+    <ion-button expand="block" color="success" routerLink="/register" style="--padding-start: 20px; --padding-end: 20px;">Register</ion-button>
+  </form>
+</ion-content>
+
+<style>
+  ion-button {
+    border-radius: 100px;
+    --background: #7bc96f;
+    --padding-start: 20px;
+    --padding-end: 20px;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+</style>
