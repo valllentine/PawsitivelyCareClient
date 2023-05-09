@@ -1,0 +1,7 @@
+{
+  "name": "PawsitivelyCareClient",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
