@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthenticationService } from '../../services/auth.service';
+import { AuthenticationService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -14,18 +14,7 @@ export class HomePage {
   constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {}
-
-  email: string ='';
-  password: string ='';
-
-  login(email: string, password: string) {
-    this.authService.login(email, password).subscribe(res =>{
-
-    }, error => {
-      alert("Wrong login or password")
-    })
-  }
-
+  
   logout() {
     this.authService.logout;
   }

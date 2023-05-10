@@ -1,42 +1,45 @@
-<!-- <ion-header>
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Register
-    </ion-title>
+    <ion-title>Register</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" style="background: linear-gradient(to bottom right, #a4e871, #ffe164);">
-  <form #registerForm="ngForm">
+<ion-content>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
     <ion-item>
       <ion-label position="floating">Name</ion-label>
-      <ion-input type="text" name="name" [(ngModel)]="name" required></ion-input>
+      <ion-input type="text" formControlName="Name"></ion-input>
     </ion-item>
+
     <ion-item>
       <ion-label position="floating">Surname</ion-label>
-      <ion-input type="text" name="surname" [(ngModel)]="surname" required></ion-input>
+      <ion-input type="text" formControlName="Surname"></ion-input>
     </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Phone</ion-label>
+      <ion-input type="tel" formControlName="Phone"></ion-input>
+    </ion-item>
+
     <ion-item>
       <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" name="email" [(ngModel)]="email" required></ion-input>
+      <ion-input type="email" formControlName="Email"></ion-input>
     </ion-item>
+
     <ion-item>
       <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" name="password" [(ngModel)]="password" required></ion-input>
+      <ion-input type="password" formControlName="Password"></ion-input>
     </ion-item>
-    <ion-button type="submit" expand="block" (click)="register(name, surname, email, password)">Register</ion-button>
-  </form>
-  <ion-button expand="block" color="success" routerLink="/login">Login</ion-button>
-</ion-content>
 
-<style>
-  ion-button {
-    border-radius: 50px;
-    --background: #7bc96f;
-  }
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-</style> -->
+    <ion-item>
+      <ion-label>Gender</ion-label>
+      <ion-select formControlName="Gender">
+        <ion-select-option [value]="gender.Male">Male</ion-select-option>
+        <ion-select-option [value]="gender.Female">Female</ion-select-option>
+        <ion-select-option [value]="gender.Other">Other</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button type="submit" expand="block" [disabled]="!registrationForm.valid" (click)="onSubmit()">Register</ion-button>
+  </form>
+</ion-content>

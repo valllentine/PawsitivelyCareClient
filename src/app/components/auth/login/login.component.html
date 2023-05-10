@@ -6,9 +6,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" >
   <form #loginForm="ngForm">
-    <ion-item>
+    <ion-item>  
       <ion-label position="floating">Email</ion-label>
       <ion-input type="email" name="email" [(ngModel)]="email" required></ion-input>
     </ion-item>
@@ -19,7 +19,7 @@
     <ion-button type="submit" expand="block" (click)="login(email, password)" style="margin-top: 20px" >Login</ion-button>
     <ion-button type="submit"  *ngIf="isLogginIn" expand="block" (click)="logout()">Logout</ion-button>
     <p class="ion-text-center">Don't have an account? Create the new one!</p>
-    <ion-button expand="block" color="success" routerLink="/register" style="--padding-start: 20px; --padding-end: 20px;">Register</ion-button>
+    <ion-button expand="block" color="success" routerLink="/register" style="--padding-start: 20px; --padding-end: 20px;"  (click)="navigateToRegister()">Register</ion-button>
   </form>
 </ion-content>
 

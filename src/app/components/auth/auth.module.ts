@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthPageRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -12,7 +12,8 @@ import { RegisterComponent } from './register/register.component';
     CommonModule,
     FormsModule,
     IonicModule,
-    AuthPageRoutingModule
+    AuthPageRoutingModule,
+    ReactiveFormsModule
   ],
   declarations: [RegisterComponent, LoginComponent]
 })

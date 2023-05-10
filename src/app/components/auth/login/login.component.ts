@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/auth.service';
 
 @Component({
@@ -7,20 +9,26 @@ import { AuthenticationService } from 'src/app/services/auth.service';
   styleUrls: ['login.component.scss'],
 })
 export class LoginComponent {
+  constructor(private authService: AuthenticationService, private router: Router) { }
 
-  public get isLogginIn():boolean {
+  @ViewChild('loginForm') loginForm: NgForm;
+
+  email: string;
+  password: string;
+
+  ngOnInit(): void {
+    this.authService.setIsLoginPage(true);
+  }
+
+  public get isLogginIn(): boolean {
     return this.authService.isAuthenticated();
   }
-  constructor(private authService: AuthenticationService) { }
-
-  ngOnInit() {}
-
-  email: string ='';
-  password: string ='';
 
   login(email: string, password: string) {
     this.authService.login(email, password).subscribe(res =>{
-
+      this.authService.setIsLoginPage(false);
+      this.loginForm.reset();
+      this.router.navigateByUrl('home/posts');
     }, error => {
       alert("Wrong login or password")
     })
@@ -30,4 +38,7 @@ export class LoginComponent {
     this.authService.logout;
   }
 
+  navigateToRegister() {
+    this.router.navigate(['/auth/register']);
+  }
 }

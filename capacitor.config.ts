@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'PawsitivelyCareClient',
   webDir: 'www',
   server: {
-    url:'http://192.168.1.4:4200',
+    url:'http://192.168.1.4:4200/',
     cleartext: true,
     androidScheme: 'http'
   }

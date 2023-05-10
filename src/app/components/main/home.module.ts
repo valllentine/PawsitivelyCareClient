@@ -2,9 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
-import { HomePage } from './home.page';
+import { HomePage } from './home/home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
+import { UserChatsComponent } from './user-chats/user-chats.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserPostsComponent } from './user-posts/user-posts.component';
 
 
 @NgModule({
@@ -14,6 +17,6 @@ import { HomePageRoutingModule } from './home-routing.module';
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage]
+  declarations: [HomePage, UserChatsComponent, UserProfileComponent, UserPostsComponent]
 })
 export class HomePageModule {}

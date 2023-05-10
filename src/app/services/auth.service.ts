@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, of, tap } from 'rxjs';
 import { BACKEND_API_URL } from '../app-injection-tokens';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Token } from '../models/token.model';
+import { User } from '../models/user.model';
+import { FormGroup } from '@angular/forms';
 
 export const TOKEN = 'token';
 
@@ -18,8 +20,14 @@ export class AuthenticationService {
     private router: Router
   ) {}
 
+  private isLoginPage = new BehaviorSubject<boolean>(false);
+  public isLoginPage$ = this.isLoginPage.asObservable();
+
+  setIsLoginPage(isLoginPage: boolean): void {
+    this.isLoginPage.next(isLoginPage);
+  }
+
   login(email: string, password: string): Observable<Token> {
-    console.log('auth')
     return this.http
       .post<Token>(`${this.apiUrl}api/users/login`, {
         email,
@@ -39,6 +47,11 @@ export class AuthenticationService {
 
   logout(): void {
     localStorage.removeItem(TOKEN);
-    this.router.navigate(['auth/login']);
+    this.setIsLoginPage(true);
+    this.router.navigate(['/auth/login']);
+  }
+
+  register(user: User): Observable<boolean> {
+    return this.http.post<boolean>(`${this.apiUrl}api/users/register`, user);
   }
 }
