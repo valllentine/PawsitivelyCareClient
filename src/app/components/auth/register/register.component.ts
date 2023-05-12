@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['/auth/login']);
       },
       error => {
-        alert('Something went wrong. Please try again later. Mey be a user with this email already exists.');
+        alert('Something went wrong. Please try again later. May be a user with this email already exists.');
       }
     );
   }

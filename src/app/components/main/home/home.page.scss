@@ -3,3 +3,9 @@ ion-button {
   bottom: 0;
   right: 0;
 }
+
+.toolbar-container {
+  display: flex;
+  align-items: center; /* выравнивание элементов по вертикали */
+  gap: 5px; /* расстояние между элементами */
+}

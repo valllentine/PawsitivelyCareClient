@@ -1,3 +1,33 @@
-<p>
-  user-profile works!
-</p>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="stacked">First Name</ion-label>
+    <ion-input [(ngModel)]="user.name" [readonly]="!editing"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label position="stacked">Last Name</ion-label>
+    <ion-input [(ngModel)]="user.surname" [readonly]="!editing"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label position="stacked">Email</ion-label>
+    <ion-input [(ngModel)]="user.email" [readonly]="!editing"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label position="stacked">Phone Number</ion-label>
+    <ion-input [(ngModel)]="user.phone" [readonly]="!editing"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Password</ion-label>
+    <ion-input [(ngModel)]="user.password" [readonly]="!editing"></ion-input>
+  </ion-item>
+
+  <div class="ion-padding">
+    <ion-button color="primary" *ngIf="!editing" (click)="edit()">Edit</ion-button>
+    <ion-button color="primary" *ngIf="editing" (click)="save()">Save</ion-button>
+  </div>
+</ion-content>
+

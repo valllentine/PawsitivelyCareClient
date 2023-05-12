@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { Post } from '../models/post.model';
+import { Post, PostCategory, PostType } from '../models/post.model';
 import { BACKEND_API_URL } from '../app-injection-tokens';
 import { Observable } from 'rxjs';
 
@@ -13,8 +13,12 @@ export class PostsService {
     @Inject(BACKEND_API_URL) private apiUrl: string
   ) {}
 
-  getPosts(type: string, category: string, location: string): Observable<Post> {
-    return this.http.get<Post>(`${this.apiUrl}api/users/login`, {});
+  getPosts(type: PostType, category: number, location: string): Observable<Post[]> {
+    let params = new HttpParams()
+    .set('type', type.toString())
+    .set('category', category)
+    .set('location', location);
+    return this.http.get<Post[]>(`${this.apiUrl}api/posts/`, {params});
   }
 
   getUserPosts(): Observable<Post[]> {
@@ -23,5 +27,9 @@ export class PostsService {
 
   editPost(post: Post): Observable<Post> {
     return this.http.post<Post>(`${this.apiUrl}api/posts/edit/` + post.id, post);
+  }
+
+  createPost(post: Post): Observable<boolean> {
+    return this.http.post<boolean>(`${this.apiUrl}api/posts/create`, post);
   }
 }

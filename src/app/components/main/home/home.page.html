@@ -1,24 +1,65 @@
-<ion-list>
+<ion-toolbar style="width: 100%;">
+  <div class="toolbar-container">
     <ion-item>
-      <ion-card style="width: 100%; " >
-        <ion-card-header>
-          {{"post.title"}}
+      <ion-label style="font-size: medium">Location:</ion-label>
+      <ion-input [(ngModel)]="selectedLocation"></ion-input>
+    </ion-item>
+    <ion-select style="width: 40%;" [(ngModel)]="selectedType" placeholder="Type">
+      <ion-select-option [value]="postTypes.Customer">Customers</ion-select-option>
+      <ion-select-option [value]="postTypes.Executor">Executors</ion-select-option>
+    </ion-select>
+    <ion-select style="width: 40%;" [(ngModel)]="selectedCategory" placeholder="Category">
+      <ion-select-option [value]="0">All</ion-select-option>
+      <ion-select-option [value]="postCategories.Medicine">Medicine</ion-select-option>
+      <ion-select-option [value]="postCategories.Walking">Walking</ion-select-option>
+      <ion-select-option [value]="postCategories.Grooming">Grooming</ion-select-option>
+      <ion-select-option [value]="postCategories.Training">Training</ion-select-option>
+      <ion-select-option [value]="postCategories.PetSitting">PetSitting</ion-select-option>
+      <ion-select-option [value]="postCategories.VeterinaryCare">VeterinaryCare</ion-select-option>
+      <ion-select-option [value]="postCategories.Other">Other</ion-select-option>
+    </ion-select>
+  </div>
+</ion-toolbar>
+<ion-toolbar>
+  <ion-button (click)="getPosts()">
+    <ion-icon slot="icon-only" name="search"></ion-icon>
+  </ion-button>
+</ion-toolbar>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let post of posts">
+      <ion-card style="width: 100%;">
+        <ion-card-header style="color: black; font-size: 16px; ">
+          <div style="font-size: 16px; font-weight: bold;">Category:</div> {{postCategories[post.postCategoryId]}}
+          <p></p>
+          <div style="font-size: 14px; font-weight: bold;">Location:</div> {{post.location}}
         </ion-card-header>
-        <ion-card-content>
-          {{"post.text"}}
+        <ion-card-header style="font-size: 18px; font-weight: bold; color: black">
+          {{post.title}}
+        </ion-card-header>
+        <ion-card-content style="font-size: 16px; color: black">
+          {{post.content}}
         </ion-card-content>
-        <ion-button slot="end">Откликнуться</ion-button>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <ion-button color="success">Respond</ion-button>
+        </div>
         <br>
-        <ion-label >Комментарии</ion-label>
-        <ion-list *ngIf="1<2">
-          <ion-item >
+        <ion-label (click)="showComments(post)">Comments</ion-label>
+          <ion-list *ngIf="post.showComments">
+            <ion-item *ngFor="let comment of post.comments">
+              <div style="font-weight: bold;">Location:</div> {{comment.text}}
+            </ion-item>
+          </ion-list>
+        <ion-list *ngIf="1 > 2">
+          <ion-item>
             <ion-label>{{"a"}}</ion-label>
           </ion-item>
         </ion-list>
       </ion-card>
     </ion-item>
   </ion-list>
-  
-  <ion-infinite-scroll >
+  <ion-infinite-scroll>
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
+  </ion-content>

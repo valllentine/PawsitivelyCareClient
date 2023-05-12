@@ -5,12 +5,12 @@ export enum Gender {
 }
 
 export interface User {
-    Id?: string;
-    Name?: string;
-    Surname?: string;
-    Gender?: Gender;
-    Phone?: string;
-    Email?: string;
-    Password?: string;
+    id?: string;
+    name?: string;
+    surname?: string;
+    gender?: Gender;
+    phone?: string;
+    email?: string;
+    password?: string;
   }
   
