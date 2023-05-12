@@ -2,7 +2,7 @@
   <form [formGroup]="postCreationForm" (ngSubmit)="onSubmit()">
     <ion-item>
       <ion-label>Post Type</ion-label>
-      <ion-select formControlName="Gender">
+      <ion-select formControlName="PostType">
         <ion-select-option [value]="postTypes.Customer">Customer</ion-select-option>
         <ion-select-option [value]="postTypes.Executor">Executor</ion-select-option>
       </ion-select>
@@ -10,7 +10,7 @@
 
     <ion-item>
       <ion-label>Post Category</ion-label>
-      <ion-select formControlName="Gender">
+      <ion-select formControlName="PostCategoryId">
         <ion-select-option [value]="postCategories.Medicine">Medicine</ion-select-option>
         <ion-select-option [value]="postCategories.Walking">Walking</ion-select-option>
         <ion-select-option [value]="postCategories.Grooming">Grooming</ion-select-option>
@@ -23,17 +23,17 @@
 
     <ion-item>
       <ion-label position="floating">Title</ion-label>
-      <ion-input type="text" formControlName="Name"></ion-input>
+      <ion-input type="text" formControlName="Title"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Content</ion-label>
-      <ion-input type="text" formControlName="Surname"></ion-input>
+      <ion-input type="text" formControlName="Content"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Location</ion-label>
-      <ion-input type="tel" formControlName="Phone"></ion-input>
+      <ion-input type="tel" formControlName="Location"></ion-input>
     </ion-item>
 
     <ion-button type="submit" expand="block" [disabled]="!postCreationForm.valid" (click)="onSubmit()">Create</ion-button>

@@ -25,7 +25,7 @@ export class CreatePostComponent implements OnInit {
   ngOnInit() {
     this.postCreationForm = this.formBuilder.group({
       PostType: ['', Validators.required],
-      PostCategory: ['', Validators.required],
+      PostCategoryId: ['', Validators.required],
       Title: ['', Validators.required],
       Content: ['', Validators.required],
       Location: ['', Validators.required],
@@ -37,7 +37,7 @@ export class CreatePostComponent implements OnInit {
     this.postsService.createPost(post).subscribe(
       res => {
         this.presentToast('Post created successfully');
-        this.router.navigate(['/posts/myPosts']);
+        this.router.navigateByUrl('/posts/myPosts');
       },
       error => {
         alert('Something went wrong. Please try again later.');
