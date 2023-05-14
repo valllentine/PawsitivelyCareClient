@@ -1,14 +1,14 @@
 <ion-toolbar style="width: 100%;">
   <div class="toolbar-container">
     <ion-item>
-      <ion-label style="font-size: medium">Location:</ion-label>
+      <ion-label class="lable" style="font-size: medium">Location:</ion-label>
       <ion-input [(ngModel)]="selectedLocation"></ion-input>
     </ion-item>
-    <ion-select style="width: 40%;" [(ngModel)]="selectedType" placeholder="Type">
+    <ion-select class="lable"style="width: 40%;" [(ngModel)]="selectedType" placeholder="Type">
       <ion-select-option [value]="postTypes.Customer">Customers</ion-select-option>
       <ion-select-option [value]="postTypes.Executor">Executors</ion-select-option>
     </ion-select>
-    <ion-select style="width: 40%;" [(ngModel)]="selectedCategory" placeholder="Category">
+    <ion-select class="lable" style="width: 40%;" [(ngModel)]="selectedCategory" placeholder="Category">
       <ion-select-option [value]="0">All</ion-select-option>
       <ion-select-option [value]="postCategories.Medicine">Medicine</ion-select-option>
       <ion-select-option [value]="postCategories.Walking">Walking</ion-select-option>
@@ -40,7 +40,7 @@
             <div class="item-value">{{post.location}}</div>
           </div>
         </ion-card-header>
-        <ion-card-header style="font-size: 18px; font-weight: bold; color: black">
+        <ion-card-header class="post-title" style="font-size: 18px; font-weight: bold; color: black">
           {{post.title}}
         </ion-card-header>
         <ion-card-content style="font-size: 16px; color: black">
@@ -50,7 +50,7 @@
           <ion-button color="success" (click)="createChat(post)">Respond</ion-button>
         </div>
         <br>
-        <ion-label (click)="showComments(post)">Comments</ion-label>
+        <ion-label class="lable" (click)="showComments(post)">Comments</ion-label>
           <ion-list *ngIf="post.showComments">
             <ion-item *ngFor="let comment of post.comments">
               <div style="font-weight: bold;">Location:</div> {{comment.text}}

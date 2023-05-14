@@ -1,7 +1,15 @@
-ion-button {
-  position: absolute;
-  bottom: 0;
-  right: 0;
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../../fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaNeue';
+  src: url('../../../fonts/HelveticaNeueCyr-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 .toolbar-container {
@@ -11,12 +19,14 @@ ion-button {
 }
 
 .item-name {
+  font-family: 'Montserrat';
   font-size: 15px; 
   margin-right: 10px;
   color: rgb(77, 76, 76);
 }
 
 .item-description {
+  font-family: 'HelveticaNeue';
   display: flex;
   justify-content: space-between;
 }
@@ -28,6 +38,20 @@ ion-button {
 
 .item-value {
   color: rgb(36, 35, 35); 
-  font-weight: bold;
   font-size: 18px; 
+}
+
+.lable {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+ion-button {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
