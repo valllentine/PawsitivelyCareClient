@@ -5,8 +5,35 @@
     font-style: normal;
   }
 
+  @font-face {
+    font-family: 'HelveticaNeue';
+    src: url('../../../fonts/HelveticaNeueCyr-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
   ion-title {
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
     text-align: center;
+  }
+
+  ion-label {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  ion-input {
+    font-family: 'HelveticaNeue', sans-serif;
+    font-size: 20px;
+  }
+
+  ion-button {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 17px;
+  }
+
+  .ion-text-center {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
   }

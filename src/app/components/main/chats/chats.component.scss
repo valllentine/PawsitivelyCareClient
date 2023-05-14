@@ -1,3 +1,19 @@
-ion-item {
-    font-size: 20px;
-}
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../../../fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'HelveticaNeue';
+    src: url('../../../fonts/HelveticaNeueCyr-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  ion-item {
+    font-family: 'HelveticaNeue';
+    font-size: 22px;
+    margin-bottom: 5px;
+  }

@@ -26,8 +26,8 @@
   </ion-item>
 
   <div class="ion-padding">
-    <ion-button color="primary" *ngIf="!editing" (click)="edit()">Edit</ion-button>
-    <ion-button color="primary" *ngIf="editing" (click)="save()">Save</ion-button>
+    <ion-button color="primary" slot="end"*ngIf="!editing" (click)="edit()">Edit</ion-button>
+    <ion-button color="primary" slot="end"*ngIf="editing" (click)="save()">Save</ion-button>
   </div>
 </ion-content>
 
