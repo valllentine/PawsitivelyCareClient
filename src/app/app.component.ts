@@ -8,7 +8,7 @@ import { Route, Router } from '@angular/router';
 })
 export class AppComponent {
   public isLoginPage: boolean = false;
-  navbarTitle: string = 'Posts';
+  navbarTitle: string = 'PawsitivelyCare';
 
   constructor(private authService: AuthenticationService, private router: Router) {
     this.authService.isLoginPage$.subscribe(isLoginPage => {

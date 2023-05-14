@@ -1,19 +1,64 @@
-<ion-content>
-  <ion-list>
-    <ion-item *ngFor="let message of messages" [ngClass]="{ 'message-left': message.senderId !== currentUser.id, 'message-right': message.senderId === currentUser.id }">
-      {{ message.text }}
-    </ion-item>
-  </ion-list>
-  <div class="scroll-top-button" [hidden]="!showScrollTopButton" (click)="scrollTop()">
-    <ion-icon name="arrow-up"></ion-icon>
-  </div>
-</ion-content>
+<ion-toolbar style="width: 100%;">
+  <ion-button *ngIf="!showPost" slot="start" [routerLink]="['/chats']">
+    <ion-icon slot="icon-only" name="arrow-undo-circle-outline"></ion-icon>
+  </ion-button>
+  <ion-button slot="end" (click)="openPost()" >
+    <ion-icon *ngIf="!showPost" slot="icon-only" name="help-circle-outline"></ion-icon>
+    <ion-icon *ngIf="showPost" slot="icon-only" name="arrow-undo-circle-outline"></ion-icon>
+  </ion-button>
+</ion-toolbar>
 
-<ion-footer>
-  <ion-toolbar>
-    <ion-textarea [(ngModel)]="newMessage" placeholder="Type a message"></ion-textarea>
-    <ion-buttons slot="end">
-      <ion-button (click)="sendMessage()">Send</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
+<ion-content>
+  <ng-container *ngIf="!showPost">
+  <ion-grid style="height: 85%;">
+    <ion-row *ngFor="let message of messages">
+      <ion-col size="9" *ngIf="currentUser.id !== message.senderId" class="message other-message">
+        <span>{{message.text}}</span>
+        <div class="time other-time"><br>
+          {{message.createdAt | date:'short'}}
+        </div>
+      </ion-col>
+
+      <ion-col offset="3" size="9" *ngIf="currentUser.id === message.senderId" class="message my-message">
+        <b>You</b><br>
+        <span>{{message.text}}</span>
+        <div class="time"><br>
+          {{message.createdAt | date:'short'}}
+        </div>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+  <ion-footer>
+    <ion-toolbar>
+      <ion-textarea [(ngModel)]="newMessage" placeholder="Type a message"></ion-textarea>
+      <ion-buttons slot="end">
+        <ion-button (click)="sendMessage()">
+          <ion-icon slot="icon-only" name="send-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
+</ng-container>
+
+<ng-container *ngIf="showPost">
+  <ion-card style="width: 100%; display: flex; flex-direction: column;">
+    <ion-card-header class="item-description">
+      <div class="items">
+        <div class="item-name">Category:</div>
+        <div class="item-value">{{postCategories[postInfo.postCategoryId]}}</div>
+      </div>
+      <div class="items">
+        <div class="item-name">Location:</div>
+        <div class="item-value">{{postInfo.location}}</div>
+      </div>
+    </ion-card-header>
+    <ion-card-header style="font-size: 18px; font-weight: bold; color: black">
+      {{postInfo.title}}
+    </ion-card-header>
+    <ion-card-content style="font-size: 16px; color: black">
+      {{postInfo.content}}
+    </ion-card-content>
+  </ion-card>
+</ng-container>
+</ion-content>

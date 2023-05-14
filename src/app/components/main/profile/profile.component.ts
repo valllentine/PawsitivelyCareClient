@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppComponent } from 'src/app/app.component';
 import { User } from 'src/app/models/user.model';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -7,17 +8,21 @@ import { UsersService } from 'src/app/services/users.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class UserProfileComponent  implements OnInit {
+export class UserProfileComponent implements OnInit {
   user: User;
   editing = false;
 
-  constructor(private userService: UsersService) { }
+  constructor(
+    private appComp: AppComponent,
+    private userService: UsersService
+  ) {}
 
   ngOnInit() {
+    this.appComp.changeNavbarTitle("Profile");
+
     this.userService.getUser().subscribe(
       (data: User) => {
         this.user = data;
-        console.log(data)
       },
       (error) => {
         console.log(error);

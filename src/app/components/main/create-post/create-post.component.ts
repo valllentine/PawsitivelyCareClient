@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { AppComponent } from 'src/app/app.component';
 import { Post, PostCategory, PostType } from 'src/app/models/post.model';
 import { PostsService } from 'src/app/services/posts.service';
 
@@ -16,13 +17,16 @@ export class CreatePostComponent implements OnInit {
   postCategories: typeof PostCategory = PostCategory;
 
   constructor(
+    private appComp: AppComponent,
     private formBuilder: FormBuilder,
     private postsService: PostsService,
     private toastController: ToastController,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit() {
+    this.appComp.changeNavbarTitle("Create a Post")
+
     this.postCreationForm = this.formBuilder.group({
       PostType: ['', Validators.required],
       PostCategoryId: ['', Validators.required],

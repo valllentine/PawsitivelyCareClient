@@ -23,7 +23,7 @@
         <ion-button (click)="editPost(post)">
           <ion-icon slot="icon-only" name="create-outline"></ion-icon>
         </ion-button>
-        <ion-button color="danger">
+        <ion-button color="danger" (click)="deletePost(post.id)">
           <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
         </ion-button>
       </div>

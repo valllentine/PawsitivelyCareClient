@@ -10,9 +10,17 @@ import { UserProfileComponent } from './profile/profile.component';
 import { UserPostsComponent } from './user-posts/user-posts.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { ChatDetailsComponent } from './chat-details/chat-details.component';
+import { AutosizeModule } from 'ngx-autosize';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonicModule, HomePageRoutingModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    IonicModule,
+    HomePageRoutingModule,
+    AutosizeModule
+  ],
   declarations: [
     HomePage,
     UserChatsComponent,

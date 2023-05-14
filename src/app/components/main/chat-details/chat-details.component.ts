@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
+import { Chat } from 'src/app/models/chat.model';
 import { MessageDto } from 'src/app/models/create-message.model';
 import { Message } from 'src/app/models/message.model';
+import { Post, PostCategory, PostType } from 'src/app/models/post.model';
 import { User } from 'src/app/models/user.model';
 import { ChatsService } from 'src/app/services/chats.service';
+import { PostsService } from 'src/app/services/posts.service';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -14,18 +18,24 @@ import { UsersService } from 'src/app/services/users.service';
 export class ChatDetailsComponent implements OnInit {
   chatId: string;
   currentUser: User;
+  chatInfo: Chat;
+  postInfo: Post;
   messages: Message[] = [];
   newMessage: string;
+  postTypes: typeof PostType = PostType;
+  postCategories: typeof PostCategory = PostCategory;
   showScrollTopButton = false;
+  showPost = false;
 
   constructor(
+    private appComp: AppComponent,
     private route: ActivatedRoute,
     private chatsService: ChatsService,
     private usersService: UsersService,
+    private postsService: PostsService
   ) {}
 
-  ngOnInit() {
-    console.log("init")
+  async ngOnInit() {
     this.chatId = this.route.snapshot.paramMap.get('id') || '';
     this.usersService.getUser().subscribe((user) => {
       this.currentUser = user;
@@ -33,9 +43,18 @@ export class ChatDetailsComponent implements OnInit {
 
     this.chatsService.getMessagesForChat(this.chatId).subscribe((messages) => {
       this.messages = messages;
-      console.log(messages)
       this.showScrollTopButton = this.messages.length > 10;
     });
+
+   this.chatInfo = await this.chatsService.getChat(this.chatId);
+
+    if (this.chatInfo) {
+      this.postsService.getPost(this.chatInfo.postId).subscribe((post) => {
+        this.postInfo = post;
+      });
+    }
+    
+    this.appComp.changeNavbarTitle(this.chatInfo.name)
   }
 
   sendMessage() {
@@ -46,13 +65,18 @@ export class ChatDetailsComponent implements OnInit {
       text: this.newMessage,
       chatId: this.chatId,
       senderId: this.currentUser.id,
-    }
+    };
 
-    this.chatsService.createMessage(message);
+    this.chatsService.createMessage(message).subscribe(
+      (res) => {},
+      (error) => {
+        alert('Something went wrong. Please try again later.');
+      }
+    );
     this.newMessage = '';
   }
 
-  scrollTop() {
-    window.scrollTo(0, 0);
+  openPost() {
+    this.showPost = !this.showPost;
   }
 }

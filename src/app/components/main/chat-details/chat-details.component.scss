@@ -1,23 +1,59 @@
-ion-item.message-left {
-    text-align: left;
-  }
-  
-  ion-item.message-right {
+.time {
     text-align: right;
+    font-size: 15px;
+  }
+
+  .message {
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 4px;
+    white-space: pre-wrap;
+  }
+
+  .other-message {
+    background: rgb(222, 217, 217);
+    color: black;
+  }
+
+  .my-message { 
+    background: rgb(163, 192, 249);
+    color: black;
+  }
+
+  ion-textarea {
+    font-size: 20px;
+  }
+
+  .toolbar-container {
+    display: flex;
+    align-items: center;
+    gap: 5px; 
   }
   
-  .scroll-top-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #007aff;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
+  .item-name {
+    font-size: 15px; 
+    margin-right: 10px;
+    color: rgb(77, 76, 76);
+  }
+  
+  .item-description {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+  }
+  
+  .items {
+    display: flex;
     align-items: center;
-    color: #fff;
-    z-index: 999;
-    cursor: pointer;
+  }
+  
+  .item-value {
+    color: rgb(36, 35, 35); 
+    font-weight: bold;
+    font-size: 18px; 
+  }
+
+  ion-footer {
+    --ion-safe-area-bottom: 60px;
+    position: fixed;
   }

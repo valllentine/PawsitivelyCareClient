@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
+import { AppComponent } from 'src/app/app.component';
 import { Post, PostCategory } from 'src/app/models/post.model';
 import { CommentsService } from 'src/app/services/comments.service';
 import { PostsService } from 'src/app/services/posts.service';
@@ -16,13 +17,20 @@ export class UserPostsComponent implements OnInit {
   postCategories: typeof PostCategory = PostCategory;
 
   constructor(
+    private appComp: AppComponent,
     private postService: PostsService,
     private commentService: CommentsService,
     private alertCtrl: AlertController,
     private router: Router,
+    private toastController: ToastController,
   ) {}
 
   ngOnInit() {
+    this.appComp.changeNavbarTitle("My Posts")
+    this.getUserPosts();
+  }
+
+  getUserPosts() {
     this.postService.getUserPosts().subscribe(
       (data: Post[]) => {
         this.posts = data;
@@ -103,7 +111,25 @@ export class UserPostsComponent implements OnInit {
     );
   }
 
-  async deletePost(post: any) {
-    // this.postService.deletePost(post);
+  async deletePost(postId: string) {
+    this.postService.deletePost(postId).subscribe(
+      (response) => {
+        this.presentToast('Post deleted successfully');
+      },
+      (error) => {
+        alert('Something went wrong. Please try again later.');
+      }
+    );
+
+    this.getUserPosts();
+  }
+
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000,
+      position: 'top',
+    });
+    toast.present();
   }
 }

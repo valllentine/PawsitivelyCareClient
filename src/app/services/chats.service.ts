@@ -20,6 +20,15 @@ export class ChatsService {
     return this.http.get<Chat[]>(`${this.apiUrl}api/chats`, {});
   }
 
+  async getChat(chatId: string): Promise<Chat> {
+    let params = new HttpParams().set('chatId', chatId);
+    const chat = await this.http.get<Chat>(`${this.apiUrl}api/chats/chatInfo`, { params }).toPromise();
+    if (chat === undefined) {
+      throw new Error('Failed to retrieve chat');
+    }
+    return chat;
+  }
+
   createChat(chat: Chat): Observable<Chat> {
     return this.http.post<Chat>(`${this.apiUrl}api/chats`, chat);
   }

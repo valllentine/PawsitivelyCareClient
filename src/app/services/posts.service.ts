@@ -25,11 +25,21 @@ export class PostsService {
     return this.http.get<Post[]>(`${this.apiUrl}api/posts/myPosts`, {});
   }
 
+  getPost(postId: string): Observable<Post> {
+    let params = new HttpParams()
+    .set('postId', postId);
+    return this.http.get<Post>(`${this.apiUrl}api/posts/postInfo`, {params});
+  }
+
   editPost(post: Post): Observable<Post> {
     return this.http.put<Post>(`${this.apiUrl}api/posts/` + post.id, post);
   }
 
   createPost(post: Post): Observable<boolean> {
     return this.http.post<boolean>(`${this.apiUrl}api/posts`, post);
+  }
+
+  deletePost(postId: string): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.apiUrl}api/posts/${postId}`);
   }
 }

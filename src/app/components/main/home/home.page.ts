@@ -7,6 +7,7 @@ import { PostCategory } from 'src/app/models/post.model';
 import { ChatsService } from 'src/app/services/chats.service';
 import { Chat } from 'src/app/models/chat.model';
 import { NavigationExtras, Router } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +25,7 @@ export class HomePage {
   postCategories: typeof PostCategory = PostCategory;
 
   constructor(
+    private appComp: AppComponent,
     private authService: AuthenticationService,
     private postService: PostsService,
     private chatService: ChatsService,
@@ -31,6 +33,7 @@ export class HomePage {
   ) {}
 
   ngOnInit() {
+    this.appComp.changeNavbarTitle("Posts")
     this.getPosts();
   }
 

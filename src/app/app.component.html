@@ -20,33 +20,33 @@
     <ion-content>
       <ion-list class="menu-items" lines="none">
         <ion-menu-toggle>
-        <ion-item routerLink="/home/profile" (click)="changeNavbarTitle('Profile')"> 
+        <ion-item routerLink="/home/profile"> 
           <ion-icon slot="start" name="person"></ion-icon>
           <ion-label>Profile</ion-label>
         </ion-item>
       </ion-menu-toggle>
       <ion-menu-toggle>
-        <ion-item routerLink="/home/chats" (click)="changeNavbarTitle('Chats')">
+        <ion-item routerLink="/home/chats">
           <ion-icon slot="start" name="chatbubbles-outline"></ion-icon>
           <ion-label>Chats</ion-label>
         </ion-item>
       </ion-menu-toggle>
       <ion-menu-toggle>
-        <ion-item routerLink="/home/posts" (click)="changeNavbarTitle('Posts')">
+        <ion-item routerLink="/home/posts">
           <ion-icon slot="start" name="newspaper"></ion-icon>
           <ion-label>Posts</ion-label>
         </ion-item>
       </ion-menu-toggle>
       <ion-menu-toggle>
-        <ion-item routerLink="/home/myPosts" (click)="changeNavbarTitle('My Posts')">
+        <ion-item routerLink="/home/myPosts">
           <ion-icon slot="start" name="document-text-outline"></ion-icon>
           <ion-label>My posts</ion-label>
         </ion-item>
       </ion-menu-toggle>
       <ion-menu-toggle>
-        <ion-item routerLink="/home/createPost" (click)="changeNavbarTitle('Create Post')">
+        <ion-item routerLink="/home/createPost">
           <ion-icon slot="start" name="clipboard-outline"></ion-icon>
-          <ion-label>Create Post</ion-label>
+          <ion-label>Create a Post</ion-label>
         </ion-item>
       </ion-menu-toggle>
       <ion-item (click)="logout()">
