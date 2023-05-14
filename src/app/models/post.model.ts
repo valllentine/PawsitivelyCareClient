@@ -17,11 +17,11 @@ export enum PostCategory {
 
 export interface Post {
     id: string;
-    title?: string;
-    content?: string;
-    location?: string;
-    createdAt?: Date;
-    creatorId?: string;
+    title: string;
+    content: string;
+    location: string;
+    createdAt: Date;
+    creatorId: string;
     postCategoryId: number;
     type: PostType;
 

@@ -12,7 +12,7 @@
   <ion-menu menuId="main-menu" contentId="main" *ngIf="!isLoginPage">
     <ion-header>
       <ion-toolbar>
-        <ion-title>
+        <ion-title style="margin-left: 20px;">
           Menu
         </ion-title>
       </ion-toolbar>
@@ -46,7 +46,7 @@
       <ion-menu-toggle>
         <ion-item routerLink="/home/createPost" (click)="changeNavbarTitle('Create Post')">
           <ion-icon slot="start" name="clipboard-outline"></ion-icon>
-          <ion-label>CreatePost</ion-label>
+          <ion-label>Create Post</ion-label>
         </ion-item>
       </ion-menu-toggle>
       <ion-item (click)="logout()">
@@ -69,6 +69,13 @@
     font-style: normal;
   }
 
+    ion-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: bold;
+      color: rgb(79, 76, 76);
+      font-size: 25px;
+    }
+
     .maim-mienu {
       width: 50%;
     }
@@ -89,6 +96,15 @@
 
     .menu-items ion-label {
     font-family: 'Montserrat', sans-serif;
-    color: rgb(107, 104, 104);
+    color: rgb(79, 76, 76);
+    font-weight: bold;
+    font-size: 22px;
+    }
+
+    .navbarTitle {
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    font-weight: bold;
+    font-size: 22px;
   }
   </style>

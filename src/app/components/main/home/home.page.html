@@ -29,11 +29,16 @@
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let post of posts">
-      <ion-card style="width: 100%;">
-        <ion-card-header style="color: black; font-size: 16px; ">
-          <div style="font-size: 16px; font-weight: bold;">Category:</div> {{postCategories[post.postCategoryId]}}
-          <p></p>
-          <div style="font-size: 14px; font-weight: bold;">Location:</div> {{post.location}}
+      <ion-card style="width: 100%; display: flex; flex-direction: column;">
+        <ion-card-header class="item-description">
+          <div class="items">
+            <div class="item-name">Category:</div>
+            <div class="item-value">{{postCategories[post.postCategoryId]}}</div>
+          </div>
+          <div class="items">
+            <div class="item-name">Location:</div>
+            <div class="item-value">{{post.location}}</div>
+          </div>
         </ion-card-header>
         <ion-card-header style="font-size: 18px; font-weight: bold; color: black">
           {{post.title}}
@@ -42,7 +47,7 @@
           {{post.content}}
         </ion-card-content>
         <div style="display: flex; justify-content: space-between; align-items: center;">
-          <ion-button color="success">Respond</ion-button>
+          <ion-button color="success" (click)="createChat(post)">Respond</ion-button>
         </div>
         <br>
         <ion-label (click)="showComments(post)">Comments</ion-label>

@@ -4,6 +4,9 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 import { PostsService } from 'src/app/services/posts.service';
 import { PostType } from 'src/app/models/post.model';
 import { PostCategory } from 'src/app/models/post.model';
+import { ChatsService } from 'src/app/services/chats.service';
+import { Chat } from 'src/app/models/chat.model';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -16,29 +19,36 @@ export class HomePage {
   posts: Post[] = [];
   selectedType: PostType = PostType.Customer;
   selectedCategory: number = 0;
-  selectedLocation: string = "";
+  selectedLocation: string = '';
   postTypes: typeof PostType = PostType;
   postCategories: typeof PostCategory = PostCategory;
 
-  constructor(private authService: AuthenticationService, private postService: PostsService,) { }
+  constructor(
+    private authService: AuthenticationService,
+    private postService: PostsService,
+    private chatService: ChatsService,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.getPosts();
   }
 
-  public get isLogginIn():boolean {
+  public get isLogginIn(): boolean {
     return this.authService.isAuthenticated();
   }
 
   async getPosts() {
-    this.postService.getPosts(this.selectedType, this.selectedCategory, this.selectedLocation).subscribe(
-      (data: Post[]) => {
-        this.posts = data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.postService
+      .getPosts(this.selectedType, this.selectedCategory, this.selectedLocation)
+      .subscribe(
+        (data: Post[]) => {
+          this.posts = data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
   async showComments(post: Post) {
@@ -53,4 +63,22 @@ export class HomePage {
     }
   }
 
+  async createChat(post: Post) {
+    const chat: Chat = {
+      id: '',
+      name: post.title,
+      postId: post.id,
+      postCreatorId: post.creatorId,
+    }
+
+    this.chatService.createChat(chat).subscribe(
+      res => {
+        const id: string = res.id;
+        this.router.navigateByUrl(`/chat/${id}`);
+      },
+      error => {
+        alert('Something went wrong. Please try again later.');
+      }
+    );
+  }
 }

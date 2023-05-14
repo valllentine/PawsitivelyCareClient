@@ -1,5 +1,7 @@
 <ion-toolbar style="width: 100%;">
-  <ion-button (click)="createPost()">Create a post</ion-button>
+  <ion-button  slot="end" (click)="createPost()" >
+    <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+  </ion-button>
 </ion-toolbar>
 
 <ion-content>
@@ -18,8 +20,12 @@
         {{post.content}}
       </ion-card-content>
       <div style="display: flex; justify-content: space-between; align-items: center;">
-        <ion-button (click)="editPost(post)">Edit</ion-button>
-        <ion-button color="danger"><ion-icon slot="icon-only" name="trash-outline"></ion-icon></ion-button>
+        <ion-button (click)="editPost(post)">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button color="danger">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
       </div>
       <br>
       <ion-label (click)="showComments(post)">Comments</ion-label>

@@ -4,8 +4,8 @@ import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss'],
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss'],
 })
 export class UserProfileComponent  implements OnInit {
   user: User;

@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { JwtModule } from '@auth0/angular-jwt';
 import { TOKEN } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { HomePageRoutingModule } from './components/main/home-routing.module';
 
 export function tokenGetter(){
   return localStorage.getItem(TOKEN);
@@ -29,6 +30,7 @@ export function tokenGetter(){
     }),
     AppRoutingModule,
     HttpClientModule,
+    HomePageRoutingModule,
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

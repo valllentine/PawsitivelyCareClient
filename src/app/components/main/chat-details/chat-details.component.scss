@@ -1,0 +1,23 @@
+ion-item.message-left {
+    text-align: left;
+  }
+  
+  ion-item.message-right {
+    text-align: right;
+  }
+  
+  .scroll-top-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007aff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    z-index: 999;
+    cursor: pointer;
+  }

@@ -5,7 +5,7 @@ export enum Gender {
 }
 
 export interface User {
-    id?: string;
+    id: string;
     name?: string;
     surname?: string;
     gender?: Gender;
