@@ -26,9 +26,7 @@ export class PostsService {
   }
 
   getPost(postId: string): Observable<Post> {
-    let params = new HttpParams()
-    .set('postId', postId);
-    return this.http.get<Post>(`${this.apiUrl}api/posts/postInfo`, {params});
+    return this.http.get<Post>(`${this.apiUrl}api/posts/${postId}`);
   }
 
   editPost(post: Post): Observable<Post> {

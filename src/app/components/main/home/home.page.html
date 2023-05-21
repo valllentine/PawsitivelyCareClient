@@ -26,7 +26,11 @@
   </ion-button>
 </ion-toolbar>
 
-<ion-content>
+<p *ngIf="posts.length == 0" class="no-content-text">
+  Posts not found
+</p>
+
+<ion-content *ngIf="posts.length != 0">
   <ion-list>
     <ion-item *ngFor="let post of posts">
       <ion-card style="width: 100%; display: flex; flex-direction: column;">

@@ -1,7 +1,10 @@
 <ion-content>
-  <ion-list>
+  <ion-list *ngIf="chats.length != 0">
     <ion-item *ngFor="let chat of chats" [routerLink]="['/chat', chat.id]">
       {{ chat.name }}
     </ion-item>
   </ion-list>
+  <p *ngIf="chats.length == 0" class="no-content-text">
+    You don't have chats
+  </p>
 </ion-content>

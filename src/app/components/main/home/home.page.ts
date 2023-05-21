@@ -6,8 +6,10 @@ import { PostType } from 'src/app/models/post.model';
 import { PostCategory } from 'src/app/models/post.model';
 import { ChatsService } from 'src/app/services/chats.service';
 import { Chat } from 'src/app/models/chat.model';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
+import { CommentsService } from 'src/app/services/comments.service';
+import { Comment } from 'src/app/models/comment.model';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +18,6 @@ import { AppComponent } from 'src/app/app.component';
 })
 export class HomePage {
   keys = Object.keys;
-  commentService: any;
   posts: Post[] = [];
   selectedType: PostType = PostType.Customer;
   selectedCategory: number = 0;
@@ -29,8 +30,9 @@ export class HomePage {
     private authService: AuthenticationService,
     private postService: PostsService,
     private chatService: ChatsService,
+    private commentsService: CommentsService,
     private router: Router,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.appComp.changeNavbarTitle("Posts")
@@ -55,13 +57,23 @@ export class HomePage {
   }
 
   async showComments(post: Post) {
-    const foundPost = this.posts.find((p) => p.id === post.id);
+    const currentPostIndex = this.posts.findIndex((p) => p.id === post.id);
 
-    if (foundPost) {
-      foundPost.showComments = !foundPost.showComments;
+    if (currentPostIndex !== -1) {
+      const currentPost = this.posts[currentPostIndex];
+      this.posts[currentPostIndex].showComments = !this.posts[currentPostIndex].showComments;
 
-      if (foundPost.showComments) {
-        this.commentService.getComments(foundPost.id);
+      if (currentPost.showComments) {
+        this.commentsService
+          .getComments(currentPost.id)
+          .subscribe(
+            (data: Comment[]) => {
+              this.posts[currentPostIndex].comments = data;
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
       }
     }
   }

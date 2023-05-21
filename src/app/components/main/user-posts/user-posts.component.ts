@@ -12,7 +12,7 @@ import { PostsService } from 'src/app/services/posts.service';
   styleUrls: ['./user-posts.component.scss'],
 })
 export class UserPostsComponent implements OnInit {
-  posts: Post[];
+  posts: Post[] = [];
   newPost: Post;
   postCategories: typeof PostCategory = PostCategory;
 

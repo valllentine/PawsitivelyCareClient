@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { BACKEND_API_URL } from '../app-injection-tokens';
 import { Observable } from 'rxjs';
+import { Comment } from '../models/comment.model';
 
 @Injectable({
   providedIn: 'root'
