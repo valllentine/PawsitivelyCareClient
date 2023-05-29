@@ -50,21 +50,19 @@
         <ion-card-content style="font-size: 16px; color: black">
           {{post.content}}
         </ion-card-content>
-        <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; flex-wrap: wrap;">
+          <div *ngFor="let image of post.images" style="flex-basis: 33.33%; padding: 5px; flex-grow: 1;">
+            <img [src]="image" style="max-width: 100%; max-height: 100%; width: auto; height: auto;">
+          </div>
+        </div>
+        <div style="justify-content: space-between; align-items: center;">
           <ion-button color="success" (click)="createChat(post)">Respond</ion-button>
         </div>
         <br>
         <ion-label class="lable" (click)="showComments(post)">Comments</ion-label>
           <ion-list *ngIf="post.showComments">
-            <ion-item *ngFor="let comment of post.comments">
-              <div style="font-weight: bold;">Location:</div> {{comment.text}}
-            </ion-item>
+            <br>
           </ion-list>
-        <ion-list *ngIf="1 > 2">
-          <ion-item>
-            <ion-label>{{"a"}}</ion-label>
-          </ion-item>
-        </ion-list>
       </ion-card>
     </ion-item>
   </ion-list>

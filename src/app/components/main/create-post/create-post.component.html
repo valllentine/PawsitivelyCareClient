@@ -1,5 +1,5 @@
 <ion-content>
-  <form [formGroup]="postCreationForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="postCreationForm">
     <ion-item>
       <ion-label>Post Type</ion-label>
       <ion-select formControlName="PostType">
@@ -34,6 +34,12 @@
     <ion-item>
       <ion-label position="floating">Location</ion-label>
       <ion-input type="tel" formControlName="Location"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label></ion-label>
+      <input type="file" (change)="onImageChange($event)"accept="image/*" style="display: none" #imageInput>
+      <ion-button expand="block" (click)="imageInput.click()">Add Image</ion-button>
     </ion-item>
 
     <ion-button type="submit" expand="block" [disabled]="!postCreationForm.valid" (click)="onSubmit()">Create</ion-button>

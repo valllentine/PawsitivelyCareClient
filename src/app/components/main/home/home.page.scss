@@ -51,7 +51,6 @@ ion-button {
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   font-size: 14px;
-  position: absolute;
   bottom: 0;
   right: 0;
 }
@@ -62,4 +61,5 @@ ion-button {
   color: grey;
   display: flex;
   justify-content: center;
+  height: 100vh;
 }

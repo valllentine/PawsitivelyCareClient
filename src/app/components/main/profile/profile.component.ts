@@ -17,10 +17,10 @@ export class UserProfileComponent implements OnInit {
     private userService: UsersService
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.appComp.changeNavbarTitle("Profile");
 
-    this.userService.getUser().subscribe(
+    await this.userService.getUser().subscribe(
       (data: User) => {
         this.user = data;
       },

@@ -27,5 +27,6 @@ export interface Post {
 
     showComments: boolean;
     comments: Comment[];
+    images: string[];
   }
   

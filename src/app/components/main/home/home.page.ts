@@ -17,14 +17,14 @@ import { Comment } from 'src/app/models/comment.model';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  keys = Object.keys;
   posts: Post[] = [];
   selectedType: PostType = PostType.Customer;
   selectedCategory: number = 0;
   selectedLocation: string = '';
   postTypes: typeof PostType = PostType;
   postCategories: typeof PostCategory = PostCategory;
-
+  imagesLoaded: boolean = false;
+  
   constructor(
     private appComp: AppComponent,
     private authService: AuthenticationService,
@@ -34,9 +34,11 @@ export class HomePage {
     private router: Router,
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.appComp.changeNavbarTitle("Posts")
-    this.getPosts();
+    await this.getPosts();
+    console.log(this.posts)
+    this.imagesLoaded = true;
   }
 
   public get isLogginIn(): boolean {
@@ -44,16 +46,7 @@ export class HomePage {
   }
 
   async getPosts() {
-    this.postService
-      .getPosts(this.selectedType, this.selectedCategory, this.selectedLocation)
-      .subscribe(
-        (data: Post[]) => {
-          this.posts = data;
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+    this.posts = await this.postService.getPosts(this.selectedType, this.selectedCategory, this.selectedLocation);
   }
 
   async showComments(post: Post) {
@@ -78,6 +71,17 @@ export class HomePage {
     }
   }
 
+  async getPostImages(postId: string): Promise<string[]> {
+    const images: string[] = await this.postService.getPostImages(postId);
+
+    for (let image of images) {
+      const photoBlob = this.base64toBlob(image);
+      const photoFile = new File([photoBlob], 'img.jpeg', { type: 'image/jpeg' });
+      image = URL.createObjectURL(photoFile);
+    }
+    return images;
+  }
+
   async createChat(post: Post) {
     const chat: Chat = {
       id: '',
@@ -95,5 +99,17 @@ export class HomePage {
         alert('Something went wrong. Please try again later.');
       }
     );
+  }
+
+  private base64toBlob(base64: string) {
+    const byteString = window.atob(base64);
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const int8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+      int8Array[i] = byteString.charCodeAt(i);
+    }
+
+    const blob = new Blob([int8Array], { type: 'image/png' });
+    return blob;
   }
 }

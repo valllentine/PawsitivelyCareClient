@@ -21,6 +21,7 @@ export class UserChatsComponent implements OnInit {
     
     this.chatService.getChats().subscribe((chats) => {
       this.chats = chats;
+      this.appComp.changeNavbarTitle("Chats")
     });
   }
 }

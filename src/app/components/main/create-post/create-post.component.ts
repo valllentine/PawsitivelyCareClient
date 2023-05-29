@@ -15,17 +15,18 @@ export class CreatePostComponent implements OnInit {
   postCreationForm: FormGroup;
   postTypes: typeof PostType = PostType;
   postCategories: typeof PostCategory = PostCategory;
+  images: string[] = [];
 
   constructor(
     private appComp: AppComponent,
     private formBuilder: FormBuilder,
     private postsService: PostsService,
     private toastController: ToastController,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    this.appComp.changeNavbarTitle("Create a Post")
+    this.appComp.changeNavbarTitle('Create a Post');
 
     this.postCreationForm = this.formBuilder.group({
       PostType: ['', Validators.required],
@@ -39,14 +40,37 @@ export class CreatePostComponent implements OnInit {
   onSubmit() {
     const post: Post = this.postCreationForm.value;
     this.postsService.createPost(post).subscribe(
-      res => {
-        this.presentToast('Post created successfully');
-        this.router.navigateByUrl('/posts/myPosts');
+      (res) => {
+        this.postsService.uploadImages(this.images, res.id).subscribe(
+          () => {
+            this.presentToast('Post created successfully');
+            this.router.navigateByUrl('/home/myPosts');
+            this.postCreationForm.reset();
+          },
+          (error) => {
+            alert('Something went wrong uploading images. Please try again later.');
+          }
+        );
       },
-      error => {
+      (error) => {
         alert('Something went wrong. Please try again later.');
       }
     );
+  }
+
+  onImageChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = this.handleImageLoaded.bind(this);
+      reader.readAsDataURL(file);
+    }
+  }
+
+  handleImageLoaded(e: any) {
+    const base64Result = e.target.result;
+    const base64Data = base64Result.split(',')[1];
+    this.images.push(base64Data);
   }
 
   async presentToast(message: string) {

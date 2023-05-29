@@ -25,12 +25,12 @@ export class UserPostsComponent implements OnInit {
     private toastController: ToastController,
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.appComp.changeNavbarTitle("My Posts")
-    this.getUserPosts();
+    await this.getUserPosts();
   }
 
-  getUserPosts() {
+  async getUserPosts() {
     this.postService.getUserPosts().subscribe(
       (data: Post[]) => {
         this.posts = data;
