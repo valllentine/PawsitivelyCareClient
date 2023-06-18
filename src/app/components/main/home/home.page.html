@@ -55,13 +55,26 @@
             <img [src]="image" style="max-width: 100%; max-height: 100%; width: auto; height: auto;">
           </div>
         </div>
-        <div style="justify-content: space-between; align-items: center;">
+        <div style="display: flex; justify-content: space-between; align-items: center; padding-left: 10px; padding-right: 10px;">
           <ion-button color="success" (click)="createChat(post)">Respond</ion-button>
+          <ion-label class="lable" (click)="openCommentModal(post.id)">Add Comment</ion-label>
         </div>
         <br>
         <ion-label class="lable" (click)="showComments(post)">Comments</ion-label>
           <ion-list *ngIf="post.showComments">
+            <ion-label *ngIf="!isHasComments" class="item-name">There are no comments</ion-label>
             <br>
+            <div style="margin-bottom: 10px;" *ngFor="let c of post.comments">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <div style="display: flex; align-items: center;">
+                  <div style="font-weight: bold; font-size: 18px; color: black; margin-right: 5px;">{{ c.creator.name }}</div>
+                  <div style="font-weight: bold; font-size: 18px; color: black;">{{ c.creator.surname }}</div>
+                </div>
+                <div class="time other-time">{{ c.comment.createdAt | date:'d MMMM, HH:mm' }}</div>
+              </div>
+              <div style="font-size: 16px; color: rgb(36, 35, 35)">{{ c.comment.text }}</div>
+              <br>
+            </div>
           </ion-list>
       </ion-card>
     </ion-item>

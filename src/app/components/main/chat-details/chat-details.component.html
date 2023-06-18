@@ -10,7 +10,7 @@
 
 <ion-content>
   <ng-container *ngIf="!showPost">
-  <ion-grid style="height: 85%;">
+  <ion-grid style="height: 83%; overflow-y: scroll;">
     <ion-row *ngFor="let message of messages">
       <ion-col size="9" *ngIf="currentUser.id !== message.senderId" class="message other-message">
         <span>{{message.text}}</span>
@@ -29,7 +29,7 @@
 
     </ion-row>
   </ion-grid>
-  <ion-footer>
+  <ion-footer style="height: 15%;">
     <ion-toolbar>
       <ion-textarea [(ngModel)]="newMessage" placeholder="Type a message"></ion-textarea>
       <ion-buttons slot="end">

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { AppComponent } from 'src/app/app.component';
-import { Post, PostCategory } from 'src/app/models/post.model';
+import { CommentUser } from 'src/app/models/comment-user.model';
+import { Post, PostCategory, PostType } from 'src/app/models/post.model';
 import { CommentsService } from 'src/app/services/comments.service';
 import { PostsService } from 'src/app/services/posts.service';
 
@@ -15,11 +16,13 @@ export class UserPostsComponent implements OnInit {
   posts: Post[] = [];
   newPost: Post;
   postCategories: typeof PostCategory = PostCategory;
+  postTypes: typeof PostType = PostType;
+  isHasComments: boolean;
 
   constructor(
     private appComp: AppComponent,
     private postService: PostsService,
-    private commentService: CommentsService,
+    private commentsService: CommentsService,
     private alertCtrl: AlertController,
     private router: Router,
     private toastController: ToastController,
@@ -31,14 +34,7 @@ export class UserPostsComponent implements OnInit {
   }
 
   async getUserPosts() {
-    this.postService.getUserPosts().subscribe(
-      (data: Post[]) => {
-        this.posts = data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.posts = await this.postService.getUserPosts();
   }
 
   async editPost(post: any) {
@@ -89,13 +85,24 @@ export class UserPostsComponent implements OnInit {
   }
 
   async showComments(post: Post) {
-    const foundPost = this.posts.find((p) => p.id === post.id);
+    const currentPostIndex = this.posts.findIndex((p) => p.id === post.id);
 
-    if (foundPost) {
-      foundPost.showComments = !foundPost.showComments;
+    if (currentPostIndex !== -1) {
+      const currentPost = this.posts[currentPostIndex];
+      this.posts[currentPostIndex].showComments = !this.posts[currentPostIndex].showComments;
 
-      if (foundPost.showComments) {
-        this.commentService.getComments(foundPost.id);
+      if (currentPost.showComments) {
+        this.commentsService
+          .getComments(currentPost.id)
+          .subscribe(
+            (data: CommentUser[]) => {
+              this.posts[currentPostIndex].comments = data;
+              this.isHasComments = data.length > 0 ? true : false;
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
       }
     }
   }
@@ -115,6 +122,7 @@ export class UserPostsComponent implements OnInit {
     this.postService.deletePost(postId).subscribe(
       (response) => {
         this.presentToast('Post deleted successfully');
+        this.getUserPosts();
       },
       (error) => {
         alert('Something went wrong. Please try again later.');

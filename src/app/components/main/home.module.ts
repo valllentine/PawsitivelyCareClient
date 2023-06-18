@@ -11,6 +11,7 @@ import { UserPostsComponent } from './user-posts/user-posts.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { ChatDetailsComponent } from './chat-details/chat-details.component';
 import { AutosizeModule } from 'ngx-autosize';
+import { CreateCommentComponent } from './comment/create-comment/create-comment.component';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { AutosizeModule } from 'ngx-autosize';
     UserPostsComponent,
     CreatePostComponent,
     ChatDetailsComponent,
+    CreateCommentComponent,
   ],
 })
 export class HomePageModule {}

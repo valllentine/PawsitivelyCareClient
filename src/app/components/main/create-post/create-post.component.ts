@@ -44,13 +44,14 @@ export class CreatePostComponent implements OnInit {
         this.postsService.uploadImages(this.images, res.id).subscribe(
           () => {
             this.presentToast('Post created successfully');
-            this.router.navigateByUrl('/home/myPosts');
             this.postCreationForm.reset();
+            this.router.navigateByUrl('/home/myPosts');
           },
           (error) => {
             alert('Something went wrong uploading images. Please try again later.');
           }
         );
+        this.images = [];
       },
       (error) => {
         alert('Something went wrong. Please try again later.');

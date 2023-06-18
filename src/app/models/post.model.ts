@@ -1,5 +1,4 @@
-import { Comment } from "./comment.model";
-
+import { CommentUser } from "./comment-user.model";
 export enum PostType {
   Customer = 0,
   Executor = 1
@@ -26,7 +25,7 @@ export interface Post {
     type: PostType;
 
     showComments: boolean;
-    comments: Comment[];
+    comments: CommentUser[];
     images: string[];
   }
   

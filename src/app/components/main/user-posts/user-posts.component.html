@@ -15,7 +15,9 @@
       <ion-card-header style="color: black; font-size: 16px; ">
         <div style="font-size: 16px; font-weight: bold;">Category:</div> {{postCategories[post.postCategoryId]}}
         <p></p>
-        <div style="font-size: 14px; font-weight: bold;">Location:</div> {{post.location}}
+        <div style="font-size: 16px; font-weight: bold;">Location:</div> {{post.location}}
+        <p></p>
+        <div style="font-size: 16px; font-weight: bold;">Post Type:</div> {{postTypes[post.type]}}
       </ion-card-header>
       <ion-card-header style="font-size: 18px; font-weight: bold; color: black">
         {{post.title}}
@@ -23,6 +25,11 @@
       <ion-card-content style="font-size: 16px; color: black">
         {{post.content}}
       </ion-card-content>
+      <div style="display: flex; flex-wrap: wrap;">
+        <div *ngFor="let image of post.images" style="flex-basis: 33.33%; padding: 5px; flex-grow: 1;">
+          <img [src]="image" style="max-width: 100%; max-height: 100%; width: auto; height: auto;">
+        </div>
+      </div>
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <ion-button (click)="editPost(post)">
           <ion-icon slot="icon-only" name="create-outline"></ion-icon>
@@ -32,16 +39,21 @@
         </ion-button>
       </div>
       <br>
-      <ion-label (click)="showComments(post)">Comments</ion-label>
-        <ion-list *ngIf="post.showComments">
-          <ion-item *ngFor="let comment of post.comments">
-            <div style="font-weight: bold;">Location:</div> {{comment.text}}
-          </ion-item>
-        </ion-list>
-      <ion-list *ngIf="1 > 2">
-        <ion-item>
-          <ion-label>{{"a"}}</ion-label>
-        </ion-item>
+      <ion-label class="lable" (click)="showComments(post)">Comments</ion-label>
+      <ion-list *ngIf="post.showComments">
+        <ion-label *ngIf="!isHasComments" class="item-name">There are no comments</ion-label>
+        <br>
+        <div style="margin-bottom: 10px;" *ngFor="let c of post.comments">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+            <div style="display: flex; align-items: center;">
+              <div style="font-weight: bold; font-size: 18px; color: black; margin-right: 5px;">{{ c.creator.name }}</div>
+              <div style="font-weight: bold; font-size: 18px; color: black;">{{ c.creator.surname }}</div>
+            </div>
+            <div class="time other-time">{{ c.comment.createdAt | date:'d MMMM, HH:mm' }}</div>
+          </div>
+          <div style="font-size: 16px; color: rgb(36, 35, 35)">{{ c.comment.text }}</div>
+          <br>
+        </div>
       </ion-list>
     </ion-card>
   </ion-item>

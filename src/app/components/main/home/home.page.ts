@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/models/post.model';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { PostsService } from 'src/app/services/posts.service';
@@ -10,13 +10,16 @@ import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 import { CommentsService } from 'src/app/services/comments.service';
 import { Comment } from 'src/app/models/comment.model';
+import { CommentUser } from 'src/app/models/comment-user.model';
+import { ModalController, ToastController } from '@ionic/angular';
+import { CreateCommentComponent } from '../comment/create-comment/create-comment.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
   posts: Post[] = [];
   selectedType: PostType = PostType.Customer;
   selectedCategory: number = 0;
@@ -24,25 +27,26 @@ export class HomePage {
   postTypes: typeof PostType = PostType;
   postCategories: typeof PostCategory = PostCategory;
   imagesLoaded: boolean = false;
+  isHasComments: boolean;
   
   constructor(
     private appComp: AppComponent,
-    private authService: AuthenticationService,
     private postService: PostsService,
     private chatService: ChatsService,
     private commentsService: CommentsService,
+    private modalController: ModalController,
+    private toastController: ToastController,
     private router: Router,
   ) { }
 
-  async ngOnInit() {
-    this.appComp.changeNavbarTitle("Posts")
-    await this.getPosts();
-    console.log(this.posts)
+ ngOnInit() {
+    this.appComp.changeNavbarTitle("Posts");
+    this.getPosts();
     this.imagesLoaded = true;
   }
 
-  public get isLogginIn(): boolean {
-    return this.authService.isAuthenticated();
+  ionViewDidEnter() {
+    this.appComp.changeNavbarTitle("Posts");
   }
 
   async getPosts() {
@@ -60,8 +64,9 @@ export class HomePage {
         this.commentsService
           .getComments(currentPost.id)
           .subscribe(
-            (data: Comment[]) => {
+            (data: CommentUser[]) => {
               this.posts[currentPostIndex].comments = data;
+              this.isHasComments = data.length > 0 ? true : false;
             },
             (error) => {
               console.log(error);
@@ -69,17 +74,6 @@ export class HomePage {
           );
       }
     }
-  }
-
-  async getPostImages(postId: string): Promise<string[]> {
-    const images: string[] = await this.postService.getPostImages(postId);
-
-    for (let image of images) {
-      const photoBlob = this.base64toBlob(image);
-      const photoFile = new File([photoBlob], 'img.jpeg', { type: 'image/jpeg' });
-      image = URL.createObjectURL(photoFile);
-    }
-    return images;
   }
 
   async createChat(post: Post) {
@@ -101,15 +95,36 @@ export class HomePage {
     );
   }
 
-  private base64toBlob(base64: string) {
-    const byteString = window.atob(base64);
-    const arrayBuffer = new ArrayBuffer(byteString.length);
-    const int8Array = new Uint8Array(arrayBuffer);
-    for (let i = 0; i < byteString.length; i++) {
-      int8Array[i] = byteString.charCodeAt(i);
-    }
+  async openCommentModal(postId: string) {
+    const modal = await this.modalController.create({
+      component: CreateCommentComponent
+    });
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
 
-    const blob = new Blob([int8Array], { type: 'image/png' });
-    return blob;
+    if (data) {
+      const comment: Comment = {
+        text: data.comment,
+        postId: postId,
+      };
+
+      this.commentsService.createComment(comment).subscribe(
+        (res) => {
+          this.presentToast('Comment created successfully');
+        },
+        (error) => {
+          alert('Something went wrong. Please try again later.');
+        }
+      );
+    }
+  }
+
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000,
+      position: 'top',
+    });
+    toast.present();
   }
 }

@@ -36,8 +36,16 @@ export class PostsService {
     return finalPosts;
   }
 
-  getUserPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.apiUrl}api/posts/myPosts`, {});
+  async getUserPosts() {
+    const posts = await this.http.get<Post[]>(`${this.apiUrl}api/posts/myPosts`, {}).toPromise();
+
+    if (posts === undefined) {
+      return [];
+    }
+
+    const finalPosts = await this.test(posts)
+
+    return finalPosts;
   }
 
   getPost(postId: string): Observable<Post> {
